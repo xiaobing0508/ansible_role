@@ -1,0 +1,11 @@
+redis_port: 6379
+php_port: 127.0.0.1:9000
+cloud_path: /code/cloud
+web_port: 80
+cloud_servername: cloud.binggan.com
+wecenter_path: /code/wecenter
+wecenter_servername: wecenter.binggan.com
+redis_ip: 172.16.1.51
+wecenter_sf: /wecenter
+cloud_sf: /cloud
+lsyncd_path: /lsyncd

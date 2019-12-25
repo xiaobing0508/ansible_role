@@ -1,0 +1,83 @@
+- name: yum
+  yum:
+    name: "{{packages}}"
+    state: presten
+  vars:
+    packages:
+      - yum-plugin-priorities.noarch
+      - yum install epel-release
+- name: copy
+  copy:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+  loop:
+    - { src: local-server.repo , dest: /etc/yum.repos.d/local-server.repo}
+    - { src: CentOS-Base.repo , dest: /etc/yum.repos.d/CentOS-Base.repo}
+    - { src: epel.repo.rpmnew , dest: /etc/yum.repos.d/epel.repo.rpmnew}
+- name: shell
+  shell: 'yum clean all && yum makecache && rpm -e ntp'
+- name: yum
+  yum:
+    name: "{{packages}}"
+    state: present
+  vars:
+    packages:
+      - net-tools
+      - vim
+      - tree
+      - htop
+      - iftop
+      - iotop
+      - lrzsz
+      - sl
+      - wget
+      - unzip
+      - telnet
+      - nmap
+      - nc
+      - psmisc
+      - dos2unix
+      - bash-completion
+      - bash-comletion-extra
+      - sysstat
+      - rsync
+      - nfs-utils
+      - httpd-tools
+      - MySQL-python
+      - mariadb
+      - ntp
+      - zabbix-agent
+      - yum-utils
+- name: group
+  group:
+    name: www
+    gid: 666
+- name: user
+  user:
+    name: www
+    uid: 666
+    group: 666
+- name: systemd
+  systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+  when: (ansible_hostname is match (lb*))
+- name: firewalld
+  firewalld:
+    port: "{{item}}"
+    state: enabled
+    permanent: yes
+    immediate: yes
+  loop:
+    - 443/tcp
+    - 80/tcp
+- name: selinux
+  selinux:
+    state: disabled
+- name: template
+  template:
+    src: ifcfg-eth1
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth1
+- name: shell
+  shell: 'nmcli connection reload'

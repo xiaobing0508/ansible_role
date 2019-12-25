@@ -1,0 +1,14 @@
+- name: template
+  template:
+    src: rsyncd.conf
+    dest: /etc/rsyncd.conf
+  notify: restart rsyncd
+- name: file
+  file:
+    path: "{{lsyncd_path}}"
+    state: directory
+    owner: www
+    group: www
+- name: systemd
+  name: rsyncd
+  state: started

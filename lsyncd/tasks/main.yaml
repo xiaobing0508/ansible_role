@@ -1,0 +1,12 @@
+- name: yum
+  yum:
+    name: lsyncd
+- name: template
+  template:
+    src: lsyncd.conf
+    dest: /etc/lsyncd.conf
+  notify: restart lsyncd
+- name: systemd
+  systemd:
+    name: lsyncd
+    state: started

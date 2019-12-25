@@ -1,0 +1,19 @@
+- name: template
+  template:
+    src: cloud.conf
+    dest: /etc/nginx/conf.d/cloud.conf
+  notify: restart nginx
+- name: file
+  file:
+    path: "{{cloud_path}}"
+    state: directory
+    owner: www
+    group: www
+- name: unarchive
+  unarchive:
+    src: kodexplorer4.40.zip
+    dest: "{{cloud_path}}"
+    copy: yes
+    owner: www
+    group: www
+    creates: "/code/cloud/index.php"

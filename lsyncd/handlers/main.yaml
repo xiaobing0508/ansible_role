@@ -1,0 +1,4 @@
+- name: restart lsyncd
+  systemd:
+    name: lsyncd
+    state: restarted

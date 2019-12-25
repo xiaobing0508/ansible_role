@@ -1,0 +1,21 @@
+- name: yum_repository
+  yum_repository:
+    name: nginx
+    description: nginx.repo
+    baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
+    enabled: yes
+    gpgcheck: no
+- name: shell
+  shell: "yum-config-manager --enable nginx-mainline"
+- name: yum
+  yum:
+    name: nginx
+    state: present
+- copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+- name: systemd
+  systemd:
+    name: nginx
+    state: started

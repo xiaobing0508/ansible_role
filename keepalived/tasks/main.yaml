@@ -1,0 +1,21 @@
+- name: yum
+  yum:
+    name: keepalived
+    state: present
+- name: template
+  template:
+    src: keepalived.conf
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
+- name: file
+  file:
+    path: /scripts
+    state: directory
+- name: copy
+  copy:
+    src: check_web.sh
+    dest: /scripts/check_web.sh
+- name: systemd
+  systemd:
+    name: keepalived
+    state: stared

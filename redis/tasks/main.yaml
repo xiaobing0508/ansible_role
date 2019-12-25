@@ -1,0 +1,13 @@
+- name: yum
+  yum:
+    name: redis
+    state: present
+- name: template
+  template:
+    src: redis.conf
+    dest: /etc/redis.conf
+  notify: restart redis
+- name: systemd
+  systemd:
+    name: redis
+    state: started

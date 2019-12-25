@@ -1,0 +1,36 @@
+- name: yum
+  yum:
+    name: "{{packages}}"
+    state: present
+  vars:
+    packages:
+      - php
+      - php-cli
+      - php-common
+      - php-devel
+      - php-embedded
+      - php-gd
+      - php-mbstring
+      - php-pdo
+      - php-xml
+      - php-fpm
+      - php-mysqlnd
+      - php-opcache
+      - php-mcrypt
+      - php-pecl-memcached
+      - php-pecl-redis
+      - php-bcmath
+      - php-pecl-zip
+      - php-pecl-mongodb
+- name: template
+  template:
+    src: "{{item.src}}"
+    dest: "{{item.dast}}"
+  loop:
+    - {src: php.ini ,dest: /etc/php.ini}
+    - {src: www.conf , dest: /etc/php-fpm.d/www.conf}
+  notify: restart php-fpm
+- name: systemd
+  systemd:
+    name: php-fpm
+    state: started

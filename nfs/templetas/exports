@@ -1,0 +1,2 @@
+{{cloud_sf}} 172.16.1.0/24(rw,sync,all_squash,anonuid=666,anongid=666)
+{{wecenter_sf}} 172.16.1.0/24(rw,sync,all_squash,anonuid=666,anongid=666)

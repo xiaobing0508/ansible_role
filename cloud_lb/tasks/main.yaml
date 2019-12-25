@@ -1,0 +1,10 @@
+- name: template
+  tempate:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+  loop:
+    - {src: cloud.conf , dest: /etc/nginx/conf.d/cloud.conf}
+    - {src: proxy_params , dest: /etc/nginx/proxy_params}
+    - {src: server.crt , dest: /etc/nginx/server.crt}
+    - {src: server.key , dest: /etc/nginx/server.key}
+  notify: restart nginx
