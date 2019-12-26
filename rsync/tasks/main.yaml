@@ -10,5 +10,6 @@
     owner: www
     group: www
 - name: systemd
-  name: rsyncd
-  state: started
+  systemd:
+    name: rsyncd
+    state: started

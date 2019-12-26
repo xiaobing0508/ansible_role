@@ -1,5 +1,6 @@
 [local-repo]
 name=local-repo
-baseurl=http://172.16.1.200
+baseurl=http://172.16.1.200/repo
 gpgcheck=0
 enabled=1
+priority=1

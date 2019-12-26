@@ -1,0 +1,20 @@
+- name: template
+  template:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+  loop:
+    - {src: emlog.conf , dest: /etc/nginx/conf.d/emlog.conf}
+    - {src: proxy_params , dest: /etc/nginx/proxy_params}
+    - {src: server.crt , dest: /etc/nginx/server.crt}
+    - {src: server.key , dest: /etc/nginx/server.key}
+  notify: restart nginx
+- name: firewalld
+  firewalld:
+    port: 443/tcp
+    state: enabled
+    permanent: yes
+- name: firewalld
+  firewalld:
+    port: 80/tcp
+    state: enabled
+    permanent: yes

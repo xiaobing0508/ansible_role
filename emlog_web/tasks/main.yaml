@@ -1,0 +1,19 @@
+- name: template
+  template:
+    src: emlog.conf
+    dest: /etc/nginx/conf.d/emlog.conf
+  notify: restart nginx
+- name: file
+  file:
+    path: "{{emlog_path}}"
+    state: directory
+    owner: www
+    group: www
+- name: unarchive
+  unarchive:
+    src: emlog.zip
+    dest: "{{emlog_path}}"
+    copy: yes
+    owner: www
+    group: www
+    creates: "{{emlog_path}}/index.php"

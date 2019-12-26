@@ -22,10 +22,11 @@
       - php-bcmath
       - php-pecl-zip
       - php-pecl-mongodb
+  ignore_errors: yes
 - name: template
   template:
     src: "{{item.src}}"
-    dest: "{{item.dast}}"
+    dest: "{{item.dest}}"
   loop:
     - {src: php.ini ,dest: /etc/php.ini}
     - {src: www.conf , dest: /etc/php-fpm.d/www.conf}
