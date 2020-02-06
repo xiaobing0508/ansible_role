@@ -9,6 +9,7 @@
     state: directory
     owner: www
     group: www
+    recurse: yes
 - name: unarchive
   unarchive:
     src: kodexplorer4.40.zip
