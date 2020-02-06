@@ -15,8 +15,7 @@
   copy:
     src: check_web.sh
     dest: /scripts/check_web.sh
-- name: shell
-  shell: 'chmod +x /scripts/check_web.sh'
+    mode: '0744'
 - name: systemd
   systemd:
     name: keepalived
