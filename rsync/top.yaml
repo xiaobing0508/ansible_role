@@ -1,22 +1,13 @@
 - hosts: all
-  tasks:
-  - name: Set authorized key taken from file
-    authorized_key:
-      user: root
-      state: present
-      key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
   roles:
     - role: bash
+- hosts: rsync
+  roles:
+    - role: rsync
 - hosts: nfs
   roles:
     - role: nfs
     - role: lsyncd
-- hosts: rsync
-  roles:
-    - role: rsync
-- hosts: db
-  roles:
-    - role: mariadb
 - hosts: 172.16.1.51
   roles:
     - role: redis
