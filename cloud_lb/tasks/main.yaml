@@ -8,3 +8,7 @@
     - {src: server.crt , dest: /etc/nginx/server.crt}
     - {src: server.key , dest: /etc/nginx/server.key}
   notify: restart nginx
+- name: systemd
+  systemd:
+    name: firewalld
+    state: started
